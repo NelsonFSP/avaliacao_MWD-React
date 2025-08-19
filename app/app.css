@@ -13,3 +13,47 @@ body {
     color-scheme: dark;
   }
 }
+
+.page {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    header {
+        margin: 40px;
+    }
+
+    main {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
+        .div-input {
+            margin-bottom: 10px;
+            
+            input {
+                height: 35px;
+                margin-left: 5px;
+                border-radius: 4px;
+                border: 1px solid gray;
+            }
+        }
+    }
+
+    footer {
+        margin-top: 20px;
+
+        button {
+            color: green;
+            cursor: pointer;
+            padding: 5px 15px;
+        }
+        button:hover {
+            cursor: pointer;
+            border-radius: 4px;
+            border: 1px solid green;
+        }
+    }
+}
