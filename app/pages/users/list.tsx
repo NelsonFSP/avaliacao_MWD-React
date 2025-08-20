@@ -1,3 +1,4 @@
+import { NavLink } from "react-router"
 
 export default function ListUserPage() {
     return (
@@ -7,6 +8,7 @@ export default function ListUserPage() {
             </header>
             
             <main>
+                <NavLink to='/users/create'>Adicionar Usuário</NavLink>
             </main>
 
             <footer>

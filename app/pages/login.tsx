@@ -34,7 +34,7 @@ export default function LoginPage() {
             </main>
 
             <footer>
-                <button onClick={signIn}>Entrar</button>
+                <button className="green" onClick={signIn}>Entrar</button>
             </footer>
         </div>
     )
