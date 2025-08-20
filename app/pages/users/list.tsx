@@ -1,6 +1,18 @@
+import React from 'react'
+
 import { NavLink } from "react-router"
+import * as userService from "~/services/user.service"
 
 export default function ListUserPage() {
+
+    let users = []
+
+    React.useEffect(() => {
+        userService.getList().then(list => {
+            users = list ? list : []
+        })
+    }, [])
+
     return (
         <div className="page">
             <header>
@@ -12,6 +24,7 @@ export default function ListUserPage() {
             </main>
 
             <footer>
+                Temos {users.length} cadastrados
             </footer>
         </div>
     )

@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router"
 
+import { login } from '../services/auth.service'
+
 export default function LoginPage() {
 
     const navigate = useNavigate()
@@ -8,11 +10,13 @@ export default function LoginPage() {
     let password = ''
 
     function signIn() {
-        if (username === 'uedson' && password === '123') {
-            navigate('users')
-        } else {
-            alert('Login/senha inválido(a)!')
-        }
+        login(username, password).then(logged => {
+            if (logged === true) {
+                navigate('users')
+            } else {
+                alert('Login/senha inválido(a)!')
+            }
+        })
     }
 
     return (
