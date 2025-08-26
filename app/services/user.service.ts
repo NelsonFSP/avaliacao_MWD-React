@@ -21,3 +21,24 @@ export async function getList() {
 
     return null
 }
+
+export async function create(user: User) {
+    const logged = getLoggedUser()
+
+    const response = await fetch(URL_BASE, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+            'authorization': `Bearer ${logged?.token}`
+        },
+        body: JSON.stringify(user)
+    })
+
+    if (response.status === 201) {
+        return true
+    } else if (response.status === 400) {
+        return false
+    } else {
+        return null
+    }
+}

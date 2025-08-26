@@ -1,4 +1,7 @@
 import { useNavigate } from "react-router"
+
+import * as userService from '../../services/user.service'
+import MyInput from '../../components/my.input'
 import type { User } from "~/models"
 
 export default function UserCreatePage() {
@@ -33,11 +36,12 @@ export default function UserCreatePage() {
         }
 
         const user: User = { name, username, password }
-        console.log('User: ', user)
         
-        // Implementar o Salvar
-        
-        goBack()
+        userService.create(user).then(result => {
+            if (result === true) goBack()
+            else if (result === false) alert('Login já existe!')
+            else navigate('/')
+        })
     }
 
     return (
@@ -47,25 +51,10 @@ export default function UserCreatePage() {
             </header>
             
             <main>
-                <div className="div-input">
-                    <span>Nome:</span>
-                    <input type="text" onChange={event => name = event.target.value} />
-                </div>
-
-                <div className="div-input">
-                    <span>Login:</span>
-                    <input type="text" onChange={event => username = event.target.value} />
-                </div>
-
-                <div className="div-input">
-                    <span>Senha:</span>
-                    <input type="password" onChange={event => password = event.target.value} />
-                </div>
-
-                <div className="div-input">
-                    <span>Confirmar Senha:</span>
-                    <input type="password" onChange={event => confirmPass = event.target.value} />
-                </div>
+                <MyInput title="Nome" change={value => name = value} />
+                <MyInput title="Login" change={value => username = value} />
+                <MyInput type="password" title="Senha" change={value => password = value} />
+                <MyInput type="password" title="Confirmar Senha" change={value => confirmPass = value} />
             </main>
 
             <footer>

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router"
 
 import { login } from '../services/auth.service'
+import MyInput from "~/components/my.input"
 
 export default function LoginPage() {
 
@@ -26,15 +27,8 @@ export default function LoginPage() {
             </header>
             
             <main>
-                <div className="div-input">
-                    <span>Login:</span>
-                    <input type="text" onChange={event => username = event.target.value} />
-                </div>
-
-                <div className="div-input">
-                    <span>Senha:</span>
-                    <input type="password" onChange={event => password = event.target.value} />
-                </div>
+                <MyInput title="Login" change={value => username = value} />
+                <MyInput type="password" title="Senha" change={value => password = value} />
             </main>
 
             <footer>
