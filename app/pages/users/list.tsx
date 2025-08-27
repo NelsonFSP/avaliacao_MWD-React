@@ -1,18 +1,45 @@
 import React from 'react'
-import { NavLink } from "react-router"
+import { NavLink, useNavigate } from "react-router"
+
+import UserItem from '../../components/user.item'
 
 import type { User } from '~/models'
 import * as userService from "~/services/user.service"
 
 export default function ListUserPage() {
 
+    const navigate = useNavigate()
+
     const [users, setUsers] = React.useState<User[]>([])
 
-    React.useEffect(() => {
+    function fetchUsers() {
         userService.getList().then(list => {
             setUsers(list ? list : [])
+        }).catch(error => {
+            console.error(error)
+            navigate('/')
         })
+    }
+
+    React.useEffect(() => {
+        fetchUsers()
     }, [])
+
+    function update(user: User) {
+        navigate(`/users/${user.id}`)
+    }
+
+    function remove(user: User) {
+        userService.remove(user.id!).then(result => {
+            if (result === true) {
+                fetchUsers()
+            } else if (result === false) {
+                alert('Usuário não encontrado!')
+            } else {
+                navigate('/')
+            }
+        })
+    }
 
     return (
         <div className="page">
@@ -20,11 +47,11 @@ export default function ListUserPage() {
                 <h3>Listagem de Usuários</h3>
             </header>
             
-            <main>
+            <main style={{ alignItems: 'flex-start' }}>
                 <NavLink to='/users/create'>Adicionar Usuário</NavLink>
                 <br />
                 { users.map(user => (
-                    <div>{user.id} - {user.name} - {user.username}</div>
+                    <UserItem user={user} update={update} remove={remove} />
                 ) )}
             </main>
 

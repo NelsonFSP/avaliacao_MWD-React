@@ -19,7 +19,7 @@ export async function getList() {
         return data
     }
 
-    return null
+    throw Error(response.statusText)
 }
 
 export async function create(user: User) {
@@ -38,6 +38,24 @@ export async function create(user: User) {
         return true
     } else if (response.status === 400) {
         return false
+    } else {
+        return null
+    }
+}
+
+export async function remove(id: number) {
+    const logged = getLoggedUser()
+
+    const response = await fetch(`${URL_BASE}/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'content-type': 'application/json',
+            'authorization': `Bearer ${logged?.token}`
+        }
+    })
+
+    if (response.status === 200) {
+        return await response.json()
     } else {
         return null
     }
