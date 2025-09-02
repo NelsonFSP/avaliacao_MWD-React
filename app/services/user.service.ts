@@ -43,6 +43,41 @@ export async function create(user: User) {
     }
 }
 
+export async function get(id: number) {
+    const logged = getLoggedUser()
+
+    const response = await fetch(`${URL_BASE}/${id}`, {
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            'authorization': `Bearer ${logged?.token}`
+        }
+    })
+
+    if (response.status === 200) {
+        return await response.json()
+    } else {
+        throw Error(response.statusText)
+    }
+}
+
+export async function update(user: User) {
+    const logged = getLoggedUser()
+
+    const response = await fetch(`${URL_BASE}/${user.id}`, {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json',
+            'authorization': `Bearer ${logged?.token}`
+        },
+        body: JSON.stringify(user)
+    })
+
+    if (response.status !== 200) {
+        throw Error(response.statusText)
+    }
+}
+
 export async function remove(id: number) {
     const logged = getLoggedUser()
 
