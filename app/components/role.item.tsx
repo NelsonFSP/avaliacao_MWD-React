@@ -1,21 +1,19 @@
-import type { User } from "~/models"
+import type { Role } from "~/models"
 
 type Props = {
-    user: User
-    update: (user: User) => void
-    remove: (user: User) => void
+    role: Role
+    update: (role: Role) => void
+    remove: (role: Role) => void
 }
 
-export default function UserItem({ user, update, remove }: Props) {
+export default function RoleItem({ role, update, remove }: Props) {
     return (
         <div style={container}>
-            <div>{user.id}</div>
-            <div>{user.name}</div>
-            <div>{user.username}</div>
-            <div>{user.roles?.join(", ")}</div>
+            <div>{role.id}</div>
+            <div>{role.name}</div>
+            <div>{role.description}</div>
             <div>
-                <button style={editButton} onClick={() => update(user)}>Editar</button>
-                <button style={removeButton} onClick={() => remove(user)}>Remover</button>
+                <button style={removeButton} onClick={() => remove(role)}>Remover</button>
             </div>
         </div>
     )

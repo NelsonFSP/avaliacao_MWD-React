@@ -48,7 +48,11 @@ export default function ListUserPage() {
             </header>
             
             <main style={{ alignItems: 'flex-start' }}>
-                <NavLink to='/users/create'>Adicionar Usuário</NavLink>
+                <div style={{ display: 'flex', gap: '20px' }}>
+                    <NavLink to='/users/create'>Adicionar Usuário</NavLink>
+                    <NavLink to='/roles'>Ver roles</NavLink>
+                </div>
+                
                 <br />
                 { users.map(user => (
                     <UserItem user={user} update={update} remove={remove} />
